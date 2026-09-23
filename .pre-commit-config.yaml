@@ -1,5 +1,14 @@
 # Install once: uv run pre-commit install --hook-type pre-commit --hook-type commit-msg
 repos:
+  # Must run before check-json: PowerShell-generated .kiro JSON carries a BOM that check-json rejects.
+  - repo: local
+    hooks:
+      - id: kiro-json-encoding
+        name: normalise .kiro JSON encoding (strip BOM)
+        entry: python3 scripts/fix_hook_encoding.py
+        language: system
+        pass_filenames: false
+        files: ^\.kiro/(hooks|settings)/.*\.json$
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
