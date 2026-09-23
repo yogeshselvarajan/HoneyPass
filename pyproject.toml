@@ -1,0 +1,93 @@
+[project]
+name = "honeypass"
+version = "0.1.0"
+description = "Customs & immigration for AI agent plugins: inspect, detonate, and passport Kiro Powers, Agent Skills and MCP servers."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.13"
+authors = [{ name = "Yogesh Selvarajan" }]
+# Runtime dependencies are added by Kiro spec tasks with `uv add` (approved list: .kiro/steering/tech.md).
+dependencies = [
+    "pydantic>=2.9",
+    "pydantic-settings>=2.6",
+    "structlog>=24.4",
+]
+
+# Entry points are added by the specs that implement them:
+# [project.scripts]
+# honeypass = "honeypass.cli:app"            # cli spec
+# honeypass-mcp = "honeypass.mcp_server:main" # honeypass-mcp-power spec
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "pytest-cov>=6.0",
+    "hypothesis>=6.120",
+    "ruff>=0.8",
+    "pyrefly>=1.0",
+    "pre-commit>=4.0",
+]
+
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/honeypass"]
+
+# ---------- Ruff ----------
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+src = ["src", "tests"]
+extend-exclude = ["tests/fixtures/plugins"]
+
+[tool.ruff.lint]
+select = [
+    "E", "W", "F", "I", "N", "UP", "B", "A", "C4", "SIM", "RET", "ARG", "PTH", "DTZ",
+    "T20", "S", "BLE", "TRY", "PT", "PL", "RUF", "ERA", "ANN", "D", "C90", "PERF", "LOG", "G",
+]
+ignore = [
+    "D100", "D104",          # module/package docstrings optional for __init__ files
+    "D203", "D213",          # conflict with D211/D212 (Google style)
+    "TRY003",                # long messages in exceptions are fine (actionable errors)
+    "PLR0913",               # handled by keyword-only args rule in steering
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["S101", "D", "ANN", "PLR2004", "ARG"]
+".kiro/**/*.py" = ["T20", "D", "BLE001", "S"]
+"scripts/*.py" = ["T20"]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+# ---------- Pyrefly ----------
+[tool.pyrefly]
+project-includes = ["src", "tests"]
+python-version = "3.13"
+
+# ---------- Pytest ----------
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers --strict-config"
+markers = [
+    "integration: needs Docker/localhost services",
+    "aws: calls real AWS (opt-in)",
+    "slow: long-running tests",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["honeypass"]
+
+[tool.coverage.report]
+fail_under = 85
+show_missing = true
+skip_covered = true

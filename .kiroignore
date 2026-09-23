@@ -1,0 +1,12 @@
+# Keep secrets and noise out of Kiro's context
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.venv/
+.hypothesis/
+.pytest_cache/
+.ruff_cache/
+.honeypass/
+traces/

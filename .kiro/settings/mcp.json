@@ -1,0 +1,30 @@
+{
+  "mcpServers": {
+    "honeypass": {
+      "command": "uv",
+      "args": ["run", "honeypass-mcp"],
+      "env": { "HONEYPASS_MODE": "local", "FASTMCP_LOG_LEVEL": "ERROR" },
+      "disabled": true,
+      "autoApprove": []
+    },
+    "aws-docs": {
+      "command": "uvx",
+      "args": ["awslabs.aws-documentation-mcp-server@latest"],
+      "env": { "FASTMCP_LOG_LEVEL": "ERROR", "AWS_DOCUMENTATION_PARTITION": "aws" },
+      "disabled": false,
+      "autoApprove": []
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "disabled": false,
+      "autoApprove": []
+    },
+    "fetch": {
+      "command": "uvx",
+      "args": ["mcp-server-fetch"],
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}

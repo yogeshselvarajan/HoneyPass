@@ -1,0 +1,21 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Test-first before each spec task",
+      "trigger": "PreTaskExec",
+      "action": {
+        "type": "agent",
+        "prompt": "Before implementing this spec task: (1) list the requirement IDs and correctness properties it covers, (2) confirm you are on a feature branch (feat/<spec-name>), not main, (3) write or extend the failing unit tests and the Hypothesis property test for every correctness property touched (tests/property/test_<spec>_properties.py), then implement. Follow python-standards.md and testing-standards.md."
+      }
+    },
+    {
+      "name": "Verify after each spec task",
+      "trigger": "PostTaskExec",
+      "action": {
+        "type": "agent",
+        "prompt": "Spec task finished. Run `uv run ruff check --fix .`, `uv run pyrefly check` and `uv run pytest -m \"not aws and not integration\" -q`. Fix any failure before marking the task complete. Then propose ONE Conventional Commit message for this task using the conventional-commit skill, including trailers Spec:, Task:, Refs: with the requirement IDs. Update docs/LESSON_MAP.md if this task demonstrates a Kiro lesson."
+      }
+    }
+  ]
+}

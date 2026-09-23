@@ -1,0 +1,11 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "honeypass": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/<your-github-user>/honeypass", "honeypass-mcp"],
+      "env": { "HONEYPASS_MODE": "local", "HONEYPASS_DATA_DIR": "${PLUGIN_DATA}" }
+    }
+  }
+}

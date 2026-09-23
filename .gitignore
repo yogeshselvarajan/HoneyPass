@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.pyrefly_cache/
+.hypothesis/
+.coverage
+coverage.xml
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Secrets (never commit)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+
+# HoneyPass local runtime data
+.honeypass/
+traces/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+
+# NOTE: never ignore .kiro/ — it is required for the Kiro University submission.

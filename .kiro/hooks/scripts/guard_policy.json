@@ -1,0 +1,41 @@
+{
+  "fail_mode": "open",
+  "secret_path_patterns": [
+    "(^|/)\\.aws/(credentials|config)$",
+    "(^|/)\\.aws/sso/cache/",
+    "(^|/)\\.ssh/",
+    "(^|/)id_(rsa|ed25519|ecdsa)(\\.pub)?$",
+    "(^|/)\\.env(\\.(local|prod|production|dev|development))?$",
+    "\\.(pem|p12|pfx|key)$",
+    "(^|/)\\.netrc$",
+    "(^|/)\\.docker/config\\.json$",
+    "(^|/)\\.kube/config$"
+  ],
+  "egress_allowlist": [
+    "localhost", "127.0.0.1", "0.0.0.0",
+    "pypi.org", "files.pythonhosted.org", "astral.sh",
+    "github.com", "api.github.com", "raw.githubusercontent.com", "objects.githubusercontent.com",
+    "amazonaws.com", "aws.amazon.com",
+    "kiro.dev", "agent-plugins.org", "modelcontextprotocol.io"
+  ],
+  "network_tools_regex": "\\b(curl|wget|nc|ncat|netcat|scp|sftp|ftp|telnet|Invoke-WebRequest|Invoke-RestMethod|iwr|irm)\\b",
+  "dangerous_command_patterns": [
+    ["pipe_to_shell", "\\b(curl|wget|iwr|irm)\\b[^|;&]*\\|\\s*(sudo\\s+)?(ba|z|da)?sh\\b"],
+    ["force_push", "\\bgit\\s+push\\b[^;&|]*\\s(--force(?!-with-lease)|-f)(\\s|$)"],
+    ["no_verify", "\\bgit\\s+(commit|push)\\b[^;&|]*--no-verify"],
+    ["rm_rf_root", "\\brm\\s+-[a-zA-Z]*r[a-zA-Z]*f?[a-zA-Z]*\\s+(/|~|\\$HOME)(\\s|$)"],
+    ["chmod_world", "\\bchmod\\s+(-R\\s+)?777\\b"]
+  ],
+  "freeze": {
+    "start_utc": "2026-10-06T06:59:00+00:00",
+    "end_utc": "2026-10-20T06:59:00+00:00",
+    "command_regex": "\\bgit\\s+(commit|push|merge|rebase|tag|cherry-pick)\\b"
+  },
+  "prompt_secret_patterns": [
+    ["aws_access_key_id", "\\b(AKIA|ASIA)[0-9A-Z]{16}\\b"],
+    ["private_key_block", "-----BEGIN [A-Z ]*PRIVATE KEY-----"],
+    ["github_token", "\\bgh[pousr]_[A-Za-z0-9]{36,}\\b"]
+  ],
+  "path_keys": ["path", "paths", "file", "file_path", "filepath", "filePath", "target", "cwd", "dir", "directory", "source", "destination", "src", "dst"],
+  "command_keys": ["command", "cmd", "script", "args", "url", "uri"]
+}

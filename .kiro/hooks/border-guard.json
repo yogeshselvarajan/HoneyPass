@@ -1,0 +1,20 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "HoneyPass border guard (tool calls)",
+      "description": "Dev-time guard: blocks secret-path access, non-allowlisted egress, pipe-to-shell, force-push, --no-verify, and commits during the challenge freeze window. Exit code 2 blocks the tool call.",
+      "trigger": "PreToolUse",
+      "matcher": ".*",
+      "action": { "type": "command", "command": "python3 .kiro/hooks/scripts/border_guard.py" },
+      "timeout": 10
+    },
+    {
+      "name": "HoneyPass border guard (prompts)",
+      "description": "Blocks prompts that contain pasted secrets (AWS access keys, private keys).",
+      "trigger": "UserPromptSubmit",
+      "action": { "type": "command", "command": "python3 .kiro/hooks/scripts/border_guard.py" },
+      "timeout": 10
+    }
+  ]
+}

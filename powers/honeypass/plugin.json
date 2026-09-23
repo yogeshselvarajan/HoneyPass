@@ -1,0 +1,8 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "honeypass",
+  "version": "0.1.0",
+  "description": "Customs & immigration for AI agent plugins: inspect, detonate in a honeypot, and issue signed passports for Powers, Agent Skills and MCP servers.",
+  "license": "MIT",
+  "keywords": ["security", "plugin", "power", "skill", "mcp", "passport", "inspect", "supply chain", "prompt injection", "honeypot"]
+}

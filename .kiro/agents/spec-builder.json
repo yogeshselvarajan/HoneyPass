@@ -1,0 +1,22 @@
+{
+  "name": "spec-builder",
+  "description": "Implements HoneyPass spec tasks test-first following project steering, with pre-approved safe dev commands.",
+  "tools": ["read", "write", "shell"],
+  "includeMcpJson": true,
+  "includePowers": true,
+  "resources": [
+    "file://.kiro/steering/tech.md",
+    "file://.kiro/steering/structure.md",
+    "file://.kiro/steering/python-standards.md",
+    "file://.kiro/steering/testing-standards.md",
+    "file://.kiro/steering/git-workflow.md",
+    "skill://conventional-commit"
+  ],
+  "permissions": {
+    "rules": [
+      { "capability": "shell", "match": ["uv run *", "uv sync*", "uv add *", "uv lock*", "git status*", "git diff*", "git add *", "git switch *", "git checkout -b *", "git log*"], "effect": "allow" }
+    ]
+  },
+  "prompt": "You implement one HoneyPass spec task at a time. Work test-first: write the failing unit test and the Hypothesis property test for every correctness property the task touches, then the implementation. Keep core/ pure. Run ruff, pyrefly and pytest before declaring the task done. Never commit to main; propose a Conventional Commit message with Spec/Task/Refs trailers and let the user confirm the commit.",
+  "welcomeMessage": "Ready to build. Which spec and task number?"
+}

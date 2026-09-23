@@ -1,0 +1,25 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Format and lint Python on save",
+      "trigger": "PostFileSave",
+      "matcher": "\\.py$",
+      "action": { "type": "command", "command": "uv run ruff format --quiet . && uv run ruff check --fix --quiet . || true" },
+      "timeout": 60
+    },
+    {
+      "name": "Offer full quality gate when the agent stops",
+      "trigger": "Stop",
+      "action": { "type": "command", "command": "bash .kiro/hooks/scripts/quality_gate.sh" },
+      "timeout": 600,
+      "confirm": {
+        "question": "Run the full quality gate (ruff + pyrefly + pytest)?",
+        "options": [
+          { "id": "run", "label": "Yes, run it", "run": true },
+          { "id": "skip", "label": "Not now", "run": false }
+        ]
+      }
+    }
+  ]
+}
